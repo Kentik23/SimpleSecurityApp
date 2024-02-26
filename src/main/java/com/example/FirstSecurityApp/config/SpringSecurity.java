@@ -5,6 +5,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.crypto.password.NoOpPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
@@ -14,7 +16,7 @@ public class SpringSecurity {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests((authz) ->
-                        authz.requestMatchers("/auth/login", "error").permitAll()
+                        authz.requestMatchers("/auth/login", "/auth/registration", "error").permitAll()
                                 .anyRequest().authenticated()
                 )
                 .formLogin((httpSecurityFormLoginConfigurer) ->
@@ -24,5 +26,10 @@ public class SpringSecurity {
                                 .failureUrl("/auth/login?error")
                 );
         return http.build();
+    }
+
+    @Bean
+    public PasswordEncoder getPasswordEncoder() {
+        return NoOpPasswordEncoder.getInstance();
     }
 }

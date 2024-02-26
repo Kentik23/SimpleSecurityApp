@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Регистрация</title>
+</head>
+<body>
+    <form method="post" action="/auth/registration" th:object="${person}">
+        <label th:for="username">Введите имя пользователя</label>
+        <input type="text" th:field="*{username}"/>
+        <div style="color: red" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Ошибка имени пользователя</div>
+        <br>
+        <label th:for="password">Введите пароль</label>
+        <input type="password" th:field="*{password}"/>
+        <div style="color: red" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Ошибка пароля</div>
+        <br>
+        <input type="submit" value="Зарегистрироваться"/>
+    </form>
+</body>
+</html>

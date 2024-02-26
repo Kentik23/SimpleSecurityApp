@@ -13,7 +13,7 @@ import java.util.Optional;
 
 @Service
 public class PersonDetailsService implements UserDetailsService {
-    private PersonRepository personRepository;
+    private final PersonRepository personRepository;
 
     @Autowired
     public PersonDetailsService(PersonRepository personRepository) {
