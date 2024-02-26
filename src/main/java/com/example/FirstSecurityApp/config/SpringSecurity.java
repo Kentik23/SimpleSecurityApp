@@ -19,11 +19,15 @@ public class SpringSecurity {
                         authz.requestMatchers("/auth/login", "/auth/registration", "error").permitAll()
                                 .anyRequest().authenticated()
                 )
-                .formLogin((httpSecurityFormLoginConfigurer) ->
-                        httpSecurityFormLoginConfigurer.loginPage("/auth/login")
+                .formLogin((formLoginConfigurer) ->
+                        formLoginConfigurer.loginPage("/auth/login")
                                 .loginProcessingUrl("/process_login")
                                 .defaultSuccessUrl("/hello", true)
                                 .failureUrl("/auth/login?error")
+                )
+                .logout((logoutConfigurer) ->
+                        logoutConfigurer.logoutUrl("/logout")
+                                .logoutSuccessUrl("/auth/login")
                 );
         return http.build();
     }
