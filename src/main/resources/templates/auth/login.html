@@ -5,7 +5,7 @@
     <title>Вход</title>
 </head>
 <body>
-  <form method="post" action="/process_login">
+  <form method="post" th:action="@{/process_login}">
     <label for="username">Введите имя пользователя</label>
     <input type="text" name="username" id="username"/>
     <br>
