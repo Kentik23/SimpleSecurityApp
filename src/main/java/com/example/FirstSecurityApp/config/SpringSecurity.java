@@ -16,8 +16,9 @@ public class SpringSecurity {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests((authz) ->
-                        authz.requestMatchers("/auth/login", "/auth/registration", "error").permitAll()
-                                .anyRequest().authenticated()
+                        authz.requestMatchers("/auth/login", "/auth/registration", "/error", "/hello").permitAll()
+                                .requestMatchers("/admin").hasRole("ADMIN")
+                                .anyRequest().hasAnyRole("USER", "ADMIN")
                 )
                 .formLogin((formLoginConfigurer) ->
                         formLoginConfigurer.loginPage("/auth/login")
